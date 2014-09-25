@@ -1,0 +1,38 @@
+@(user:Option[User] = None)
+@import models._
+
+
+	<div class="navbar navbar-inverse" role="navigation">
+  	<div class="container-fluid">
+  			<div class="navbar-header">
+      		<a class="brand" href="@routes.Application.index()">
+      			<img src="@routes.Assets.at("images/files.png")" height="48" width="48"/>
+      		</a>
+      	</div>
+      	<form class="navbar-form navbar-left" role="search" method="GET" action="@routes.FileControler.search()">
+      		<div class="form-group">
+          	<input class="form-control" name="file_name" type="text" placeholder="File Name">
+          </div>	
+          <button type="submit" class="btn">Search</button>
+		  	</form>
+        <ul class="nav navbar-nav navbar-right">
+					@user match { 
+						case None => {
+					    <li><a href="@routes.Account.loginPage()" class="btn" type="button" >Log in</a> </li>
+							<li><a href="@routes.Account.registerPage()" class="btn" type="button" >Register</a> </li>
+						} case Some(user) => {
+							<li class="dropdown">
+          			<a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+          				<i class="glyphicon glyphicon-user"></i> @user.email <span class="caret"/>
+          			</a>
+          			<ul id="g-account-menu" class="dropdown-menu" role="menu">
+            			<li><a href="@routes.FileControler.files" class="btn" role="button">My Files</a></li>
+          			</ul>
+        			</li>
+							<li><a href="@routes.Account.logout" class="btn" role="button"><i class="glyphicon glyphicon-lock"></i>Log out</a></li>
+						}
+					}
+				</ul>
+        </div>
+      </div>
+    </div>

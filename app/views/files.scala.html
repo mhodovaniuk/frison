@@ -1,0 +1,54 @@
+@(fileForm: Form[(Long, Boolean)],user:User)(implicit flash:Flash)
+@import models._
+@import helper._
+@main("Welcome to Play")(Some(user)) {
+	@if(!flash.get("success").isEmpty){
+		<div class="alert alert-success alert-dismissable">
+		 	<button type="button" class="close" data-dismiss="alert" 
+		    aria-hidden="true">
+		    &times;
+		 	</button>
+		 	@flash("success")
+   	</div>
+		
+	}
+	@if(!flash.get("error").isEmpty){
+		<div class="alert alert-danger alert-dismissable">
+		 	<button type="button" class="close" data-dismiss="alert" 
+		    aria-hidden="true">
+		    &times;
+		 	</button>
+		 	@flash("error")
+   	</div>
+	}
+	
+
+	@flash.get("success")
+	<table id="files" class="table table-striped">
+	<tr>
+	<th>File name</th>
+	<th>File size</th>
+	<th>Public</th>
+	<th>Link</th>
+	<th>Remove</th>
+	</tr>
+	@for(file<-user.files){
+		<tr>
+			<td>@file.name</td>
+			<td>@file.size B</td>
+			<td>
+				@defining(if (file.public) "checked" else "") { status =>
+    			<input type="checkbox" class="fileStatus" @status fileId="@file.id" />
+				}
+			</td>
+			<td><a href="@routes.FileControler.download(user.email,file.name)">Download</a></td>
+			<td><a href="@routes.FileControler.remove(user.email,file.name)">Remove</a></td>
+		</tr>
+	}
+	</table>
+	@form(action = routes.FileControler.upload, 'enctype -> "multipart/form-data", 'class-> "form-horizontal",'role->"form") {
+		<div class="form-group">
+    	<input type="file" name="file" class="file"  data-show-preview="false">
+   	</div>   
+ 	}
+}

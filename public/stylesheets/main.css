@@ -1,0 +1,29 @@
+#footer {
+  height: 60px;
+  background-color: #222222;
+  border:0 solid #080808;
+  border-top-width: 1px;
+  margin-top:50px;
+}
+
+#footer > .container {
+  padding: 20px;
+}
+
+.light-text {
+	color: #efefef;
+}
+
+.footer-text {
+	text-align: center;
+}
+
+.header-text {
+	display:inline-block;
+	vertical-align: middle;
+}
+
+#content-id {
+	width: 800px;
+	margin: 0 auto;
+}

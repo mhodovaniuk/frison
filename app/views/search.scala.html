@@ -1,0 +1,21 @@
+@(files:List[UserFile],user:Option[User])
+@import models._
+@import helper._
+@main("Search")(user) {
+	<table id="files" class="table table-striped">
+	<tr>
+	<th>File name</th>
+	<th>File size</th>
+	<th>Link</th>
+	</tr>
+	@for(file<-files){
+		<tr>
+		<td>@file.name</td>
+		<td>@file.size B</td>
+		<td><a href="@routes.FileControler.download(file.user.email,file.name)">Download</a></td>
+		</tr>
+	}
+	<tr>
+	</tr>
+	</table>
+}
